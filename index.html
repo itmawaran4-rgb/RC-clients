@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RC Service</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Tahoma;
+        }
+
+        body {
+            background: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, .1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #0066cc;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        /* تعديل التصميم ليشمل حقول الإدخال النصية والأرقام */
+        select, input[type="text"], input[type="tel"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        select:focus, input:focus {
+            border-color: #0066cc;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 25px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background: #888;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .required {
+            color: red;
+        }
+        
+        .section-title {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px dashed #ddd;
+            color: #0066cc;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🚗 RC Service</h1>
+
+        <form id="serviceForm">
+
+            <label>ناوچە <span class="required">*</span></label>
+            <select id="area" required>
+                <option value="">هەڵبژێرە</option>
+                <option>هەولێر</option>
+                <option>دەوروبەری هەولێر</option>
+                <option>پارێزگاکانی کوردستان</option>
+                <option>باشووری عێراق</option>
+            </select>
+
+            <label>جۆری ئۆتۆمبێل <span class="required">*</span></label>
+            <select id="carType" required>
+                <option value="">هەڵبژێرە</option>
+                <option>یابانی</option>
+                <option>کۆری</option>
+                <option>ئەمەریکی</option>
+                <option>چینی</option>
+                <option>ئەوروپی</option>
+                <option>تر</option>
+            </select>
+
+            <label>ساڵی مۆدێل <span class="required">*</span></label>
+            <select id="carYear" required>
+                <option value="">هەڵبژێرە</option>
+            </select>
+
+            <label>خزمەتگوزاری <span class="required">*</span></label>
+            <select id="service" required>
+                <option value="">هەڵبژێرە</option>
+                <option>گۆڕینی ڕۆن و فلتەر</option>
+                <option>ڕۆنی گیر</option>
+                <option>ڕۆنی دیفرەنسیال</option>
+                <option>پشکنینی ئۆتۆمبێل</option>
+                <option>گۆڕینی برێک</option>
+                <option>باتری</option>
+                <option>شلەی ساردکەرەوە</option>
+                <option>گازی ساردکەرەوە</option>
+                <option>خزمەتگوزاری تر</option>
+            </select>
+
+            <label>پلەی ڕۆن <span class="required">*</span></label>
+            <select id="oilGrade" required>
+                <option value="">هەڵبژێرە</option>
+                <option>0W16</option>
+                <option>0W20</option>
+                <option>5W20</option>
+                <option>5W30</option>
+                <option>5W40</option>
+                <option>10W30</option>
+                <option>10W40</option>
+                <option>15W40</option>
+                <option>تر</option>
+            </select>
+
+            <label>جۆری کڕیار <span class="required">*</span></label>
+            <select id="customerType" required>
+                <option value="">هەڵبژێرە</option>
+                <option>نوێ</option>
+                <option>هەمیشەیی</option>
+            </select>
+
+            <label>سەرچاوەی ناسین <span class="required">*</span></label>
+            <select id="source" required>
+                <option value="">هەڵبژێرە</option>
+                <option>گەڕان لە گۆگڵ</option>
+                <option>هاوڕێ</option>
+                <option>ڤێتەر</option>
+                <option>سۆشیال میدیا</option>
+                <option>کڕیاری هەمیشەیی</option>
+            </select>
+
+            <div class="section-title">📋 زانیارییەکانی کڕیار</div>
+
+<label>ناوی کڕیار <span class="required">*</span></label>
+<input type="text" id="customerName" placeholder="ناوی تەواوی کڕیار بنووسە" required>
+
+<label>ژمارەی مۆبایل <span class="required">*</span></label>
+<input type="tel" id="phoneNumber" placeholder="7700000000 \ 0770000000" required>
+
+<label>کیلۆمەتری ئێستا <span class="required">*</span></label>
+<input type="number" id="currentKm" placeholder="کیلۆمەتری ئێستا بنووسە (تەنها ژمارە)" required>
+
+<label>مەودای دوای گۆڕین <span class="required">*</span></label>
+<select id="distance" required>
+    <option value="">مەوداکە هەڵبژێرە</option>
+    <option value="4000">4 هەزار</option>
+    <option value="5000">5 هەزار</option>
+    <option value="6000">6 هەزار</option>
+    <option value="7000">7 هەزار</option>
+    <option value="8000">8 هەزار</option>
+    <option value="9000">9 هەزار</option>
+    <option value="10000">10 هەزار</option>
+    <option value="12000">12 هەزار</option>
+    <option value="15000">15 هەزار</option>
+</select>
+
+<label>ژمارەی ڕۆژەکان بۆ هەر گۆڕینێک <span class="required">*</span></label>
+<select id="changeDays" required>
+    <option value="">ژمارەی ڕۆژەکان هەڵبژێرە</option>
+    <option value="10 ڕۆژ">10 ڕۆژ</option>
+    <option value="20 ڕۆژ">20 ڕۆژ</option>
+    <option value="30 ڕۆژ">30 ڕۆژ</option>
+    <option value="40 ڕۆژ">40 ڕۆژ</option>
+    <option value="50 ڕۆژ">50 ڕۆژ</option>
+    <option value="60 ڕۆژ">60 ڕۆژ</option>
+    <option value="70 ڕۆژ">70 ڕۆژ</option>
+    <option value="80 ڕۆژ">80 ڕۆژ</option>
+    <option value="90 ڕۆژ">90 ڕۆژ</option>
+    <option value="120 ڕۆژ">120 ڕۆژ</option>
+</select>
+
+            <button id="submitBtn" type="submit">تۆمارکردن</button>
+
+            <div class="loading" id="loading">⏳ تکایە چاوەڕێ بکە...</div>
+
+        </form>
+
+    </div>
+
+    <script>
+        const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxH6FdjhgCjCenI5nu4M10O3pL1uFDssb29DnvEwLKJK949g6rS6vvNekERQFK1N2s/exec";
+
+        // توليد السنوات تلقائياً
+        for (let year = new Date().getFullYear(); year >= 2000; year--) {
+            const option = document.createElement("option");
+            option.value = year;
+            option.textContent = year;
+            document.getElementById("carYear").appendChild(option);
+        }
+
+        document.getElementById("serviceForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const btn = document.getElementById("submitBtn");
+            const loading = document.getElementById("loading");
+
+            try {
+                btn.disabled = true;
+                loading.style.display = "block";
+
+                const formData = new FormData();
+
+                // البيانات الأصلية لـ RCData
+                formData.append("area", document.getElementById("area").value);
+                formData.append("carType", document.getElementById("carType").value);
+                formData.append("carYear", document.getElementById("carYear").value);
+                formData.append("service", document.getElementById("service").value);
+                formData.append("oilGrade", document.getElementById("oilGrade").value);
+                formData.append("customerType", document.getElementById("customerType").value);
+                formData.append("source", document.getElementById("source").value);
+
+                // معالجة رقم الهاتف (تجاهل الصفر في البداية وإضافة كود العراق)
+                let phone = document.getElementById("phoneNumber").value.trim();
+                if (phone.startsWith("0")) {
+                    phone = phone.substring(1);
+                }
+                if (!phone.startsWith("+964") && !phone.startsWith("964")) {
+                    phone = "+964" + phone;
+                }
+
+                // حساب الكيلومتر القادم
+                const currentKm = parseInt(document.getElementById("currentKm").value) || 0;
+                const distance = parseInt(document.getElementById("distance").value) || 0;
+                const nextChangeKm = currentKm + distance;
+
+                // إرسال البيانات الجديدة الخاصة بصفحة WH
+                formData.append("customerName", document.getElementById("customerName").value.trim());
+                formData.append("phoneNumber", phone);
+                formData.append("currentKm", currentKm);
+                formData.append("distance", distance);
+                formData.append("nextChangeKm", nextChangeKm);
+                formData.append("changeDays", document.getElementById("changeDays").value);
+
+                const response = await fetch(WEBAPP_URL, {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.text();
+
+                if (result === "OK") {
+                    alert("✅ تۆمارکرا ");
+                    location.reload();
+                } else {
+                    alert("❌ هەڵەیەک ڕوویدا / حدث خطأ أثناء الحفظ");
+                }
+
+            } catch (err) {
+                alert("❌ کێشەی پەیوەندی / خطأ في الاتصال بالخادم");
+            } finally {
+                btn.disabled = false;
+                loading.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>
