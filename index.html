@@ -219,7 +219,7 @@
     </div>
 
     <script>
-        const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxH6FdjhgCjCenI5nu4M10O3pL1uFDssb29DnvEwLKJK949g6rS6vvNekERQFK1N2s/exec";
+        const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxTqNzi_zVk6wRAAItbwYJ7opOa2Znf4vOJZQhWV79W-0D0RAtiIjg1jlR3y3UAgYWh/exec";
 
         // توليد السنوات تلقائياً
         for (let year = new Date().getFullYear(); year >= 2000; year--) {
@@ -265,13 +265,47 @@
                 const nextChangeKm = currentKm + distance;
 
                 // إرسال البيانات الجديدة الخاصة بصفحة WH
-                formData.append("customerName", document.getElementById("customerName").value.trim());
-                formData.append("phoneNumber", phone);
-                formData.append("currentKm", currentKm);
-                formData.append("distance", distance);
-                formData.append("nextChangeKm", nextChangeKm);
-                formData.append("changeDays", document.getElementById("changeDays").value);
+               // بيانات العميل الاختيارية
+const customerName = document.getElementById("customerName").value.trim();
+const rawPhone = document.getElementById("phoneNumber").value.trim();
+const currentKmText = document.getElementById("currentKm").value.trim();
+const distanceText = document.getElementById("distance").value;
+const changeDays = document.getElementById("changeDays").value;
 
+// تحقق هل يوجد أي حقل تم إدخاله
+const hasWHData =
+    customerName ||
+    rawPhone ||
+    currentKmText ||
+    distanceText ||
+    changeDays;
+
+if (hasWHData) {
+
+    let phone = rawPhone;
+
+    // معالجة رقم الهاتف فقط إذا تم إدخاله
+    if (phone) {
+        if (phone.startsWith("0")) {
+            phone = phone.substring(1);
+        }
+
+        if (!phone.startsWith("+964") && !phone.startsWith("964")) {
+            phone = "+964" + phone;
+        }
+    }
+
+    const currentKm = parseInt(currentKmText) || 0;
+    const distance = parseInt(distanceText) || 0;
+    const nextChangeKm = currentKm + distance;
+
+    formData.append("customerName", customerName);
+    formData.append("phoneNumber", phone);
+    formData.append("currentKm", currentKm);
+    formData.append("distance", distance);
+    formData.append("nextChangeKm", nextChangeKm);
+    formData.append("changeDays", changeDays);
+}
                 const response = await fetch(WEBAPP_URL, {
                     method: "POST",
                     body: formData
